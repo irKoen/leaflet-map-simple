@@ -6,19 +6,19 @@
   <meta charset="utf-8">
 
   <!-- Load Leaflet: instructions at http://leafletjs.com/download.html -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
-  integrity="sha384-Zh+y1U8o6/7ni8Mp8szvUfZjGeKKS10CGH3IlD6L1X+XwzYgQ1llOjw/Wslc0cma"
-  crossorigin="anonymous">
-  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
-  integrity="sha384-6rCYjRgWDEI2RlZxiVihj1WIZB/uvFiRCGpavTVgFrSPDL0Bk1AiqCW+mmv5h0LP"
-  crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+   crossorigin=""></script>
   <!-- Load Omnivore plugin to convert CSV to GeoJSON format -->
   <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
 
   <!-- Position the map and title with Cascading Style Sheet (.css) -->
   <style>
   body { margin:0; padding:0; }
-  #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  #mapid { height: 180px; }
   #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: white; border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; }
   </style>
 </head>
@@ -26,17 +26,13 @@
 
   <!-- Display the map and title with HTML division tags  -->
   <div id="map-title">Koen's test map</div>
-  <div id="map"></div>
+  <div id="mapid"></div>
 
   <!-- Create the map content with JavaScript (.js) -->
   <script>
 
   /* Set up the map with initial center and zoom level */
-  var map = L.map('map', {
-    center: [52.0907374, 5.1214201], // EDIT latitude, longitude to re-center map
-    zoom: 13,  // EDIT from 1 to 18 -- decrease to zoom out, increase to zoom in
-    scrollWheelZoom: true
-  });
+  var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
   /* Control panel to display map layers */
   var controlLayers = L.control.layers( null, null, {
@@ -55,6 +51,13 @@
     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
   }).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
   controlLayers.addBaseLayer(terrain, 'Stamen Terrain basemap');
+    
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={pk.eyJ1IjoiaXJrb2VuIiwiYSI6ImNqYzNjZG10bDBtMDUycW15aDMycjV4bzQifQ.tiDJpO46tODYYj04yR6kZQ}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox.streets',
+    accessToken: 'pk.eyJ1IjoiaXJrb2VuIiwiYSI6ImNqYzNjZG10bDBtMDUycW15aDMycjV4bzQifQ.tiDJpO46tODYYj04yR6kZQ'
+}).addTo(mymap);
 
   /* Display a blue point marker with pop-up text */
   L.marker([52.0907374, 5.1214201]).addTo(map) // EDIT latitude, longitude to re-position marker
