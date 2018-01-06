@@ -59,10 +59,6 @@
   /* Display a blue point marker with pop-up text */
   L.marker([52.0907374, 5.1214201]).addTo(map) // EDIT latitude, longitude to re-position marker
   .bindPopup("Utreg me stadsie"); // EDIT pop-up text message
-    
-      /* Display a blue point marker with pop-up text */
-  L.marker([30.77, -60.69]).addTo(map) // EDIT latitude, longitude to re-position marker
-  .bindPopup("Bananen zijn krom"); // EDIT pop-up text message
 
   /* Upload Latitude/Longitude markers from data.csv file, show Title in pop-up, and override initial center and zoom to fit all in map */
   var customLayer = L.geoJson(null, {
